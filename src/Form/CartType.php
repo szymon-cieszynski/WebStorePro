@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Order;
+use App\Form\EventListener\ClearCartListener;
 use App\Form\EventListener\RemoveCartItemListener;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +23,7 @@ class CartType extends AbstractType
             ->add('clear', SubmitType::class);
 
         $builder->addEventSubscriber(new RemoveCartItemListener());
+        $builder->addEventSubscriber(new ClearCartListener());
     }
 
     public function configureOptions(OptionsResolver $resolver): void
