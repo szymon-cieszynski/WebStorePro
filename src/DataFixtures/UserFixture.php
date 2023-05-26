@@ -22,7 +22,7 @@ class UserFixture extends Fixture
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();
             $user->setEmail(sprintf('webstore%d@example.com', $i));
-            $user->setRoles(['main_users']);
+            $user->setRoles(['ROLE_USER']);
             $user->setPlainPassword('password');
             $hashedPassword = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($hashedPassword);
