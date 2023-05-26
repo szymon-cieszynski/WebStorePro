@@ -21,6 +21,9 @@ security:
             custom_authenticator: App\Security\LoginFormAuthenticator
 
             logout: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 86400
 
             # guard:
             #     authenticators:
