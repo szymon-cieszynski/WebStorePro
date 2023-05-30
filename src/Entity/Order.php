@@ -163,4 +163,9 @@ class Order
 
         return $this;
     }
+
+    public function isEmpty(): bool
+    {
+        return $this->getItems()->isEmpty();
+    }
 }
