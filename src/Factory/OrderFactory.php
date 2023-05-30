@@ -5,6 +5,7 @@ namespace App\Factory;
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Entity\Product;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class OrderFactory
@@ -17,9 +18,10 @@ class OrderFactory
      *
      * @return Order
      */
-    public function create(): Order
+    public function create(?UserInterface $user = null): Order
     {
         $order = new Order();
+        $order->setUser($user);
         $order
             ->setStatus(Order::STATUS_CART)
             ->setCreatedAt(new \DateTime())

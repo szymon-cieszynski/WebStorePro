@@ -35,6 +35,9 @@ class Order
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -147,5 +150,17 @@ class Order
         }
 
         return $total;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

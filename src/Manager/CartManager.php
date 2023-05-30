@@ -7,6 +7,8 @@ use App\Factory\OrderFactory;
 use App\Storage\CartSessionStorage;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class CartManager
@@ -20,17 +22,21 @@ class CartManager
 
     private EntityManager $entityManager;
 
+    private Security $security;
+
     /**
      * CartManager constructor
      */
     public function __construct(
         CartSessionStorage $cartStorage,
         OrderFactory $orderFactory,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Security $security
     ) {
         $this->cartSessionStorage = $cartStorage;
         $this->cartFactory = $orderFactory;
         $this->entityManager = $entityManager;
+        $this->security = $security;
     }
 
     /**
@@ -41,10 +47,6 @@ class CartManager
     public function getCurrentCart(): Order
     {
         $cart = $this->cartSessionStorage->getCart();
-
-        if (!$cart) {
-            $cart = $this->cartFactory->create();
-        }
 
         return $cart;
     }
