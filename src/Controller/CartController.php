@@ -30,4 +30,12 @@ class CartController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/checkout', name: 'checkout')]
+    public function checkout(CartManager $cartManager, Request $request): Response
+    {
+
+
+        return $this->render('cart/checkout.html.twig');
+    }
 }

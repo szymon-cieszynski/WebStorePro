@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order summary.{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Summary of order.</h1>
+        <h2>Hello checkout here<h2>
+            {# <div class="row mt-4">         
+                <!-- Summary -->
+                <div class="col-md-4">
+                    <div class="card mt-4 mt-md-0">
+                        <h5 class="card-header bg-dark text-white">Summary</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div><b>Total</b></div>
+                                <span><b>{{ cart.total|number_format(2, '.', ',') }} PLN</b></span>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-warning w-100">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div> #}
+    </div>
+{% endblock %}
