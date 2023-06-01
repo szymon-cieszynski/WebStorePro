@@ -2,18 +2,19 @@
 
 {% block title %}Order summary.{% endblock %}
 
-{% block body %}
-    <div class="container mt-4">
-        <h1>Summary of order.</h1>
-        <div class="row mt-4">
-                <div class="col-md-8">
-                    {{ form_start(form) }}
-            
-                        {{ form_widget(form) }}
 
-                    {{ form_end(form) }}
-                </div>
-        </div>
- 
+{% block body %}
+<div class="container mb-4">
+    <h1>Checkout the order.</h1>
+    <div class="row">
+            <div class="col-md-8">
+                {{ form_start(form) }}
+        
+                    {{ form_widget(form) }}
+
+                    <button type="submit" class="btn btn-dark btn-primary btn-block ">Place order</button>
+                {{ form_end(form) }}
+            </div>
     </div>
+</div>
 {% endblock %}
