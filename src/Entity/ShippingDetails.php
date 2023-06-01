@@ -38,9 +38,6 @@ class ShippingDetails
     private ?string $phoneNr = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $shippingType = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $payment = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -48,6 +45,14 @@ class ShippingDetails
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?PaymentMethods $paymentMethod = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ShippingType $shippingType = null;
 
     public function getId(): ?int
     {
@@ -150,18 +155,6 @@ class ShippingDetails
         return $this;
     }
 
-    public function getShippingType(): ?string
-    {
-        return $this->shippingType;
-    }
-
-    public function setShippingType(string $shippingType): self
-    {
-        $this->shippingType = $shippingType;
-
-        return $this;
-    }
-
     public function getPayment(): ?string
     {
         return $this->payment;
@@ -194,6 +187,30 @@ class ShippingDetails
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?PaymentMethods
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(PaymentMethods $paymentMethod): self
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    public function getShippingType(): ?ShippingType
+    {
+        return $this->shippingType;
+    }
+
+    public function setShippingType(?ShippingType $shippingType): self
+    {
+        $this->shippingType = $shippingType;
 
         return $this;
     }
