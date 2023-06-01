@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ShippingDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ShippingDetailsRepository::class)]
 class ShippingDetails
@@ -14,41 +16,51 @@ class ShippingDetails
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter first name!')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter last name!')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter street!')]
     private ?string $street = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter building number!')]
     private ?string $buildingNumber = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $apartment = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter postal code!')]
     private ?string $postalCode = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter city!')]
     private ?string $city = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter phone number!')]
     private ?string $phoneNr = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remarks = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: 'Please enter e-mail!')]
     private ?string $email = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, unique: false)]
+    #[Assert\NotBlank(message: 'Please choose payment method!')]
     private ?PaymentMethods $paymentMethod = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, unique: false)]
+    #[Assert\NotBlank(message: 'Please choose type of shipping!')]
     private ?ShippingType $shippingType = null;
 
     public function getId(): ?int

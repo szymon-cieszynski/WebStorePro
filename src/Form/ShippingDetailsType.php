@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +23,12 @@ class ShippingDetailsType extends AbstractType
             ->add('street')
             ->add('buildingNumber')
             ->add('apartment')
-            ->add('postalCode')
+            ->add('postalCode', TextType::class, [
+                'attr' => [
+                    'pattern' => '\d{2}-\d{3}',
+                    'title' => 'Enter a postal code in the format XX-XXX'
+                ]
+            ])
             ->add('city')
             ->add('phoneNr')
             ->add('email')
@@ -40,14 +46,11 @@ class ShippingDetailsType extends AbstractType
                 'attr' => ['class' => 'custom-select'],
                 'placeholder' => 'Choose your courier'
             ])
-            ->add('remarks', TextareaType::class)
-            /*->add('total', EntityType::class, [
-                'class' => Order::class,
-                'data' => function ($total) {
-                    number_format($total->getTotal(), 2, '.', '');
-                    return $total->getTotal() . ' PLN';
-                },
-            ])*/;
+            ->add('remarks', TextareaType::class, [
+                'attr' => [
+                    'required' => false
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
