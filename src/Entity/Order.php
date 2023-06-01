@@ -38,6 +38,9 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?User $user = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?ShippingDetails $shippingDetails = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -167,5 +170,17 @@ class Order
     public function isEmpty(): bool
     {
         return $this->getItems()->isEmpty();
+    }
+
+    public function getShippingDetails(): ?ShippingDetails
+    {
+        return $this->shippingDetails;
+    }
+
+    public function setShippingDetails(?ShippingDetails $shippingDetails): self
+    {
+        $this->shippingDetails = $shippingDetails;
+
+        return $this;
     }
 }
