@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Order;
 use App\Entity\ShippingDetails;
 use App\Entity\ShippingType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -26,7 +27,8 @@ class ShippingDetailsType extends AbstractType
             ->add('phoneNr')
             ->add('email')
             ->add('paymentMethod', null, [
-                'attr' => ['style' => 'width: 100%'],
+                'attr' => ['class' => 'custom-select'],
+                'placeholder' => 'Choose payment method'
             ])
             ->add('shippingType', EntityType::class, [
                 'class' => ShippingType::class,
@@ -35,9 +37,17 @@ class ShippingDetailsType extends AbstractType
                     return $shippingType->getType() . ' - ' . $price . ' PLN';
                 },
                 'label' => 'Shipping type',
-                'attr' => ['style' => 'width: 100%'],
+                'attr' => ['class' => 'custom-select'],
+                'placeholder' => 'Choose your courier'
             ])
-            ->add('remarks', TextareaType::class);
+            ->add('remarks', TextareaType::class)
+            /*->add('total', EntityType::class, [
+                'class' => Order::class,
+                'data' => function ($total) {
+                    number_format($total->getTotal(), 2, '.', '');
+                    return $total->getTotal() . ' PLN';
+                },
+            ])*/;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
