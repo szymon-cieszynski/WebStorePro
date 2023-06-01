@@ -37,9 +37,6 @@ class ShippingDetails
     #[ORM\Column(length: 255)]
     private ?string $phoneNr = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $payment = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remarks = null;
 
@@ -151,18 +148,6 @@ class ShippingDetails
     public function setPhoneNr(string $phoneNr): self
     {
         $this->phoneNr = $phoneNr;
-
-        return $this;
-    }
-
-    public function getPayment(): ?string
-    {
-        return $this->payment;
-    }
-
-    public function setPayment(string $payment): self
-    {
-        $this->payment = $payment;
 
         return $this;
     }

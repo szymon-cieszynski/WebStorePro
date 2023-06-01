@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CartType;
+use App\Form\ShippingDetailsType;
 use App\Manager\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,11 @@ class CartController extends AbstractController
     #[Route('/checkout', name: 'checkout')]
     public function checkout(CartManager $cartManager, Request $request): Response
     {
+        $form = $this->createForm(ShippingDetailsType::class);
+        $form->handleRequest($request);
 
-
-        return $this->render('cart/checkout.html.twig');
+        return $this->render('cart/checkout.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
