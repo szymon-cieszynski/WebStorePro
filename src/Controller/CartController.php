@@ -58,8 +58,6 @@ class CartController extends AbstractController
             return $this->render('cart/success.html.twig');
         }
 
-
-
         return $this->render('cart/checkout.html.twig', [
             'form' => $form->createView(),
             'cart' => $cart,

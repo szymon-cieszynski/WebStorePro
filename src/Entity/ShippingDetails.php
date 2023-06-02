@@ -53,14 +53,13 @@ class ShippingDetails
     #[Assert\NotBlank(message: 'Please enter e-mail!')]
     private ?string $email = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false, unique: false)]
-    #[Assert\NotBlank(message: 'Please choose payment method!')]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     private ?PaymentMethods $paymentMethod = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false, unique: false)]
-    #[Assert\NotBlank(message: 'Please choose type of shipping!')]
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     private ?ShippingType $shippingType = null;
 
     public function getId(): ?int

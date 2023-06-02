@@ -4,22 +4,28 @@
 
 
 {% block body %}
-<div class="container mb-4">
-    <div class="row">
+    <div class="container mb-4">
+        <div class="row">
             <div class="col-md-6 mx-auto">
-            <h1 class="h3 mb-3 font-weight-normal">Checkout order:</h1>
-                {{ form_start(form, {'attr': 
-                    {'novalidate': 'novalidate'
-                        }}) }}
-                    {{ form_widget(form) }}
-                    {# {{ form_widget(form.shippingType, { 
-                        'attr': {'id': 'shippingType'} 
-                    }) }} #}
+                <h1 class="h3 mb-3 font-weight-normal">Checkout order:</h1>
+                {% if cart.items.count > 0 %}
+                    {{ form_start(form, {'attr': 
+                        {'novalidate': 'novalidate'
+                            }}) }}
+                        {{ form_widget(form) }}
+                        {# {{ form_widget(form.shippingType, { 
+                            'attr': {'id': 'shippingType'} 
+                        }) }} #}
 
-                    <span><b>Total cost is: {{ cart.total|number_format(2, '.', ',') }} PLN</b></span>
-                    <button type="submit" class="btn btn-dark btn-primary btn-block ">Place order</button>
-                {{ form_end(form) }}
+                        <span><b>Total cost is: {{ cart.total|number_format(2, '.', ',') }} PLN</b></span>
+                        <button type="submit" class="btn btn-dark btn-primary btn-block ">Place order</button>
+                    {{ form_end(form) }}
+                {% else %}
+                    <div class="alert alert-info">
+                    Your cart is empty. Go to the <a href="{{ path('home') }}">product list</a>.
+                    </div>
+                {% endif %}
             </div>
+        </div>
     </div>
-</div>
 {% endblock %}
