@@ -18,12 +18,13 @@ class OrderFactory
      *
      * @return Order
      */
-    public function create(?UserInterface $user = null): Order
+    public function create(?UserInterface $user = null, ?string $total = ''): Order
     {
         $order = new Order();
         $order->setUser($user);
         $order
             ->setStatus(Order::STATUS_CART)
+            //->setTotal($total)
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime());
 

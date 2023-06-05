@@ -41,6 +41,9 @@ class Order
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?ShippingDetails $shippingDetails = null;
 
+    #[ORM\Column(nullable: true, type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $total = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -180,6 +183,13 @@ class Order
     public function setShippingDetails(?ShippingDetails $shippingDetails): self
     {
         $this->shippingDetails = $shippingDetails;
+
+        return $this;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = strval($total);
 
         return $this;
     }

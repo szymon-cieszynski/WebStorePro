@@ -19,11 +19,14 @@ class CartController extends AbstractController
     public function index(CartManager $cartManager, Request $request): Response
     {
         $cart = $cartManager->getCurrentCart();
+
+        //dd($total);
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cart->setUpdatedAt(new \DateTime());
+
             $cartManager->save($cart);
 
             return $this->redirectToRoute('cart');
@@ -48,7 +51,8 @@ class CartController extends AbstractController
             $cart->setUpdatedAt(new \DateTime());
             $cart->setShippingDetails($shippingDetails);
             $cart->setStatus('done');
-
+            $total = $cart->getTotal();
+            $cart->setTotal($total);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shippingDetails);
