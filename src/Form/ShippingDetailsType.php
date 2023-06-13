@@ -44,7 +44,10 @@ class ShippingDetailsType extends AbstractType
                 },
                 'label' => 'Shipping type',
                 'attr' => ['class' => 'custom-select'],
-                'placeholder' => 'Choose your courier'
+                'placeholder' => 'Choose your courier',
+                'choice_value' => function ($shippingType) {
+                    return $shippingType ? $shippingType->getId() . '|' . $shippingType->getPrice() : '';
+                }
             ])
             ->add('remarks', TextareaType::class, [
                 'attr' => [

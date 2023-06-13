@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\ShippingDetails;
 use App\Form\CartType;
-use App\Entity\Order;
+use App\Entity\ShippingType;
 use App\Form\ShippingDetailsType;
 use App\Manager\CartManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,10 +53,18 @@ class CartController extends AbstractController
             $cart->setUpdatedAt(new \DateTime());
             $cart->setShippingDetails($shippingDetails);
             $cart->setStatus('done');
-            $total = $cart->getTotal();
-            $cart->setTotal($total);
-
+            
             $entityManager = $this->getDoctrine()->getManager();
+            $shippingTypeId = $form->get('shippingType')->getData();
+            $shippingType = $entityManager->getRepository(ShippingType::class)->find($shippingTypeId);
+
+            if ($shippingType) {
+                $total = $cart->getTotal() + $shippingType->getPrice();
+                $cart->setTotal($total);
+            }
+
+
+            //$entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shippingDetails);
             $entityManager->persist($cart);
             $entityManager->flush();
@@ -62,9 +72,22 @@ class CartController extends AbstractController
             return $this->render('cart/success.html.twig');
         }
 
+        $entityManager = $this->getDoctrine()->getManager();
+        $shippingTypes = $entityManager->getRepository(ShippingType::class)->findAll();
+        $shippingTypesData = [];
+
+        foreach ($shippingTypes as $shippingType) {
+            $shippingTypesData[] = [
+                'id' => $shippingType->getId(),
+                'price' => $shippingType->getPrice(),
+            ];
+        }
+        //dd($shippingTypesData);
+
         return $this->render('cart/checkout.html.twig', [
             'form' => $form->createView(),
             'cart' => $cart,
+            'shippingTypes' => $shippingTypesData,
         ]);
     }
 }

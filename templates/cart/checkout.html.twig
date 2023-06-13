@@ -12,12 +12,25 @@
                     {{ form_start(form, {'attr': 
                         {'novalidate': 'novalidate'
                             }}) }}
-                        {{ form_widget(form) }}
-                        {# {{ form_widget(form.shippingType, { 
+                        {# {{ form_widget(form) }} #}
+                         {# {{ form_widget(form.shippingType, { 
                             'attr': {'id': 'shippingType'} 
-                        }) }} #}
+                        }) }}  #}
+                        {{ form_row(form.firstName) }}
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.street) }}
+                        {{ form_row(form.buildingNumber) }}
+                        {{ form_row(form.apartment) }}
+                        {{ form_row(form.postalCode) }}
+                        {{ form_row(form.city) }}
+                        {{ form_row(form.phoneNr) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.paymentMethod) }}
+                        {{ form_row(form.shippingType) }}
+                        {{ form_row(form.remarks) }}
 
-                        <span><b>Total cost is: {{ cart.total|number_format(2, '.', ',') }} PLN</b></span>
+                        <span id="shippingCost"><b></b></span><br>
+                        <span><b>Cart: {{ cart.total|number_format(2, '.', ',') }} PLN</b></span>
                         <button type="submit" class="btn btn-dark btn-primary btn-block ">Place order</button>
                     {{ form_end(form) }}
                 {% else %}
@@ -28,4 +41,27 @@
             </div>
         </div>
     </div>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#{{ form.shippingType.vars.id }}').change(function() {
+      var selectedOption = $(this).find(':selected');
+      var shippingCost = selectedOption.data('price');
+
+      // Sprawdź, czy wartość shippingCost jest liczbą
+      if (!isNaN(shippingCost)) {
+        // Wyświetl koszt wysyłki
+        $('#shippingCost b').text('Shipping cost: ' + shippingCost.toFixed(2) + ' PLN');
+
+        // Zaktualizuj sumę koszyka
+        var cartTotal = parseFloat('{{ cart.total }}');
+        var totalCost = cartTotal + shippingCost;
+        $('#shippingCost').text('Shipping cost: ' + shippingCost.toFixed(2) + ' PLN');
+      }
+    });
+  });
+
+</script>
+
 {% endblock %}
