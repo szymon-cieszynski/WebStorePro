@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WebStorePro{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-3 mb-4">Your orders.</h1>
+    <div class="row">
+        <table class="table table-bordered table-sm table-hover border border-5 narrow-table">
+            <thead>
+                <tr>
+                <th>Status</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ order.updatedAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ order.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
