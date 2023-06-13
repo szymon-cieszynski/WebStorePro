@@ -12,6 +12,8 @@
                 <th>Status</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Cart sum</th>
+                <th>Shipping</th>
                 <th>Total</th>
                 </tr>
             </thead>
@@ -21,7 +23,9 @@
                     <td>{{ order.status }}</td>
                     <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
                     <td>{{ order.updatedAt|date('Y-m-d H:i:s') }}</td>
-                    <td>{{ order.total }}</td>
+                    <td>{{ (order.total - order.shippingPrice)|number_format(2, '.', ',') }} PLN</td>
+                    <td>{{ order.shippingPrice|number_format(2, '.', ',') }} PLN</td>
+                    <td>{{ (order.total + order.shippingPrice)|number_format(2, '.', ',') }} PLN</td>
                 </tr>
                 {% endfor %}
             </tbody>

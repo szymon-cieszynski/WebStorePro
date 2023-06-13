@@ -59,6 +59,19 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllOrdersById(int $userId): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb->select('o.status', 'o.createdAt', 'o.updatedAt', 'o.total', 'shippingType.price AS shippingPrice')
+            ->leftJoin('o.shippingDetails', 'shippingDetails')
+            ->leftJoin('shippingDetails.shippingType', 'shippingType')
+            ->andWhere('o.user = :userId')
+            ->setParameter('userId', $userId);
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Order[] Returns an array of Order objects
     //     */
