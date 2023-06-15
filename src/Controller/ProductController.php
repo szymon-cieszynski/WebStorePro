@@ -19,14 +19,16 @@ class ProductController extends AbstractController
         $form = $this->createForm(AddToCartType::class);
         $form->handleRequest($request);
 
+        $cart = $cartManager->getCurrentCart();
+
+        if (!$cart) {
+            $cart = $cartManager->createNewCart();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $item = $form->getData();
             $item->setProduct($product);
 
-            $cart = $cartManager->getCurrentCart();
-            if (!$cart) {
-                $cart = $cartManager->createNewCart();
-            }
             $cart
                 ->addItem($item)
                 ->setUpdatedAt(new \DateTime());

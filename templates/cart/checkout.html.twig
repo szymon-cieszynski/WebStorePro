@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <h1 class="h3 mb-3 font-weight-normal">Checkout order:</h1>
-                {% if cart.items.count > 0 %}
+                {% if cart is not null and cart.items is not empty %}
                     {{ form_start(form, {'attr': 
                         {'novalidate': 'novalidate'
                             }}) }}
@@ -44,7 +44,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
-  $(document).ready(function() {
+  {# $(document).ready(function() {
     $('#{{ form.shippingType.vars.id }}').change(function() {
       var selectedOption = $(this).find(':selected');
       var shippingCost = selectedOption.data('price');
@@ -60,7 +60,7 @@
         $('#shippingCost').text('Shipping cost: ' + shippingCost.toFixed(2) + ' PLN');
       }
     });
-  });
+  }); #}
 
 </script>
 

@@ -6,11 +6,11 @@
 {% block body %}
 <div class="container mb-4">
     <div class="row">
-            <div class="col-md-6 mx-auto">
-            <h1 class="h3 mb-3 font-weight-normal">Order placed succesfully!</h1>
-                    <button onclick="window.location.href='{{ path('home') }}'" class="btn btn-dark btn-primary btn-block">Return home</button>
-
-            </div>
+        <div class="col-md-6 mx-auto">
+                <h1 class="h3 mb-3 font-weight-normal">Order placed succesfully!</h1>
+                <button onclick="window.location.href='{{ path('home') }}'" class="btn btn-dark btn-primary btn-block">Return home</button>
+                <button onclick="window.location.href='{{ path('view_orders') }}'" class="btn btn-dark btn-primary btn-block">Check your orders</button>
+        </div>
     </div>
 </div>
 {% endblock %}

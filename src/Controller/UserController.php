@@ -15,10 +15,9 @@ class UserController extends AbstractController
     {
         $user = $security->getUser();
         $userId = $user->getId();
-        //dd($userId);
 
         return $this->render('user/orders.html.twig', [
-            'orders' => $orderRepository->findAllOrdersById($userId),
+            'orders' => $orderRepository->findAllOrdersById($userId)
         ]);
     }
 }

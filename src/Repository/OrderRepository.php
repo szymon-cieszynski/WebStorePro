@@ -70,6 +70,18 @@ class OrderRepository extends ServiceEntityRepository
             ->andWhere('o.user = :userId')
             ->setParameter('userId', $userId);
 
+        // $qb->select('o.id', 'o.status', 'o.createdAt', 'o.updatedAt', 'o.total', 'shippingType.price AS shippingPrice')
+        //     ->leftJoin('o.shippingDetails', 'shippingDetails')
+        //     ->leftJoin('shippingDetails.shippingType', 'shippingType')
+        //     ->andWhere($qb->expr()->orX(
+        //         $qb->expr()->eq('o.status', ':statusCart'),
+        //         $qb->expr()->eq('o.status', ':statusDone')
+        //     ))
+        //     ->andWhere('o.user = :userId')
+        //     ->setParameter('statusCart', 'cart')
+        //     ->setParameter('statusDone', 'done')
+        //     ->setParameter('userId', $userId);
+
         return $qb->getQuery()->getResult();
     }
 

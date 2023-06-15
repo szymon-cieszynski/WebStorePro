@@ -26,10 +26,6 @@ class CartController extends AbstractController
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
 
-        // $sessionId = '3hi6qmj5sgdur9vbi6319gjft2';
-        // $cartId = $_SESSION[$sessionId]['cartId'];
-        // dd($cartId);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             if (!$cart->isEmpty()) {
