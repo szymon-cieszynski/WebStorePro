@@ -15,7 +15,7 @@
                         <p class="card-text">{{ product.description }}</p>
                         <div class="d-flex justify-content-between align-item-center">
                             <a href="{{ path('product.detail', {id: product.id}) }}" class="btn btn-dark">View details</a>
-                            <span class="h5 mt-auto">{{ product.price }} PLN</span>
+                            <span class="h5 mt-auto">{{ product.price|number_format(2, '.', ',') }} PLN</span>
                         </div>
                     </div>
                 </div>

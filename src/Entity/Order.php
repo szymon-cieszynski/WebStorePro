@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -18,6 +19,7 @@ class Order
     private ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'orderRef', targetEntity: OrderItem::class, orphanRemoval: true, cascade: ["persist", "remove"])]
+    #[Assert\Valid]
     private Collection $items;
 
     #[ORM\Column(length: 255)]
@@ -193,4 +195,10 @@ class Order
 
         return $this;
     }
+
+    // public function clearOrder(EntityManagerInterface $entityManager): void
+    // {
+    //     $entityManager->remove($this);
+    //     $entityManager->flush();
+    // }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\OrderItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,7 +64,7 @@ class OrderRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('o');
 
-        $qb->select('o.status', 'o.createdAt', 'o.updatedAt', 'o.total', 'shippingType.price AS shippingPrice')
+        $qb->select('o.id', 'o.status', 'o.createdAt', 'o.updatedAt', 'o.total', 'shippingType.price AS shippingPrice')
             ->leftJoin('o.shippingDetails', 'shippingDetails')
             ->leftJoin('shippingDetails.shippingType', 'shippingType')
             ->andWhere('o.user = :userId')
@@ -71,6 +72,23 @@ class OrderRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    // public function removeOrder(Order $order): void
+    // {
+    //     $entityManager = $this->getEntityManager();
+    //     $entityManager->remove($order);
+    //     $entityManager->flush();
+    // }
+
+    // public function findOrderByOrderItem(OrderItem $orderItem): ?Order
+    // {
+    //     return $this->createQueryBuilder('o')
+    //         ->andWhere(':orderItem MEMBER OF o.orderItems')
+    //         ->setParameter('orderItem', $orderItem)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
+
 
     //    /**
     //     * @return Order[] Returns an array of Order objects

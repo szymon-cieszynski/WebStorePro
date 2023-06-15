@@ -13,7 +13,12 @@
                 <h2>{{ product.price }} PLN</h2>
                 <hr>
                 <b>Description: </b>{{ product.description }}
-                 {{ form_start(form, {'attr': {'class': 'mt-4 p-4 bg-light'}}) }}
+                 {{ form_start(form, 
+                    {'attr': 
+                        {'class': 'mt-4 p-4 bg-light',
+                        'novalidate': 'novalidate'} 
+                            }) 
+                }}
                 <div class="form-group">
                     {{ form_label(form.quantity) }}
                     {{ form_widget(form.quantity, {

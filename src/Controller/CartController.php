@@ -7,6 +7,7 @@ use App\Form\CartType;
 use App\Entity\ShippingType;
 use App\Form\ShippingDetailsType;
 use App\Manager\CartManager;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,15 +23,21 @@ class CartController extends AbstractController
     {
         $cart = $cartManager->getCurrentCart();
 
-        //dd($total);
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
 
+        // $sessionId = '3hi6qmj5sgdur9vbi6319gjft2';
+        // $cartId = $_SESSION[$sessionId]['cartId'];
+        // dd($cartId);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $cart->setUpdatedAt(new \DateTime());
 
-            $cartManager->save($cart);
-
+            if (!$cart->isEmpty()) {
+                $cart->setUpdatedAt(new \DateTime());
+                $cartManager->save($cart);
+            }
+            // $cart->setUpdatedAt(new \DateTime());
+            // $cartManager->save($cart);
             return $this->redirectToRoute('cart');
         }
 
@@ -53,7 +60,7 @@ class CartController extends AbstractController
             $cart->setUpdatedAt(new \DateTime());
             $cart->setShippingDetails($shippingDetails);
             $cart->setStatus('done');
-            
+
             $entityManager = $this->getDoctrine()->getManager();
             $shippingTypeId = $form->get('shippingType')->getData();
             $shippingType = $entityManager->getRepository(ShippingType::class)->find($shippingTypeId);
@@ -90,4 +97,16 @@ class CartController extends AbstractController
             'shippingTypes' => $shippingTypesData,
         ]);
     }
+
+    // #[Route('/proceed-order/{orderId}', name: 'proceed_order')]
+    // public function proceedToOrder(OrderRepository $orderRepository, string $orderId): Response
+    // {
+    //     $order = $orderRepository->find($orderId);
+
+    //     if (!$order || $order->getStatus() !== 'cart') {
+    //         throw $this->createNotFoundException('Invalid order or order not in cart state');
+    //     }
+
+    //     return $this->redirectToRoute('cart');
+    // }
 }

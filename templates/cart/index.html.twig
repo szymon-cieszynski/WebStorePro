@@ -5,11 +5,13 @@
 {% block body %}
     <div class="container mt-4">
         <h1>Your Cart</h1>
-        {% if cart.items.count > 0 %}
+        {% if cart is not null and cart.items is not empty %}
             <div class="row mt-4">
                 <!-- List of items -->
                 <div class="col-md-8">
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': 
+                        {'novalidate': 'novalidate'
+                            }}) }}
                     <div class="card">
                         <div class="card-header bg-dark text-white d-flex">
                             <h5>Items</h5>

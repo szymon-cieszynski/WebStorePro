@@ -6,9 +6,17 @@ use App\Entity\Order;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ClearCartListener implements EventSubscriberInterface
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @inheritDoc
      */
@@ -26,6 +34,7 @@ class ClearCartListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
         $cart = $form->getData();
+        //dd($cart);
 
         if (!$cart instanceof Order) {
             return;
@@ -38,5 +47,10 @@ class ClearCartListener implements EventSubscriberInterface
 
         // Clears the cart
         $cart->removeItems();
+
+        $this->entityManager->remove($cart);
+        $this->entityManager->flush();
+
+        //dd($cart);
     }
 }

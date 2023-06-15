@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 class CartItemType extends AbstractType
 {
@@ -16,8 +17,11 @@ class CartItemType extends AbstractType
         $builder
             ->add('quantity', IntegerType::class, [
                 'attr' => [
-                    'min' => 0,
+                    'min' => 1,
                 ],
+                // 'constraints' => [
+                //     new GreaterThan(0),
+                // ],
             ])
             ->add('remove', SubmitType::class);
     }

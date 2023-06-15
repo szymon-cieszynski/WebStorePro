@@ -80,7 +80,9 @@ class CartSessionStorage
 
             if (!$cart) {
                 // if cart doesn't exist create new one
-                $cart = $this->cartFactory->create(null);
+                //$cart = $this->cartFactory->create(null);
+                // If cart doesn't exist, return null instead of creating a new one
+                return null;
             }
             return $cart;
         }
@@ -94,14 +96,18 @@ class CartSessionStorage
         if ($cart) {
             if ($cart->isEmpty()) {
                 // If cart is empty, orderw will not be assignet to logged in user
-                $cart = $this->cartFactory->create($user);
+                //$cart = $this->cartFactory->create($user);
+                // If cart is empty, order will not be assigned to the logged-in user
+                return null;
             } else {
                 $cart->setUser($user);
                 $this->entityManager->flush();
             }
         } else {
             // create new cart if user hasn't anything in session
-            $cart = $this->cartFactory->create($user);
+            // /$cart = $this->cartFactory->create($user);
+            // Create new cart only when something is added to the cart
+            return null;
         }
 
         return $cart;

@@ -24,6 +24,9 @@ class ProductController extends AbstractController
             $item->setProduct($product);
 
             $cart = $cartManager->getCurrentCart();
+            if (!$cart) {
+                $cart = $cartManager->createNewCart();
+            }
             $cart
                 ->addItem($item)
                 ->setUpdatedAt(new \DateTime());

@@ -6,6 +6,7 @@ use App\Entity\Order;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class RemoveCartItemListener
@@ -13,6 +14,13 @@ use Symfony\Component\Form\FormEvents;
  */
 class RemoveCartItemListener implements EventSubscriberInterface
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @inheritDoc
      */
@@ -39,6 +47,12 @@ class RemoveCartItemListener implements EventSubscriberInterface
         foreach ($form->get('items')->all() as $child) {
             if ($child->get('remove')->isClicked()) {
                 $cart->removeItem($child->getData());
+
+                if ($cart->isEmpty()) {
+                    $this->entityManager->remove($cart);
+                }
+
+                $this->entityManager->flush();
                 break;
             }
         }

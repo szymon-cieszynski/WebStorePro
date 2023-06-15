@@ -48,11 +48,20 @@ class CartManager
      * 
      * @return Order
      */
-    public function getCurrentCart(): Order
+    public function getCurrentCart(): ?Order
     {
         $cart = $this->cartSessionStorage->getCart();
 
+        if (!$cart instanceof Order) {
+            $cart = null;
+        }
+
         return $cart;
+    }
+
+    public function createNewCart(): Order
+    {
+        return $this->cartFactory->create(null);
     }
 
     /**
