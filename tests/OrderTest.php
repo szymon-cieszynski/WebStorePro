@@ -1,12 +1,14 @@
 <?php
 
+namespace App\Tests;
+
 use App\Entity\Order;
 use App\Entity\OrderItem;
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase
 {
-    public function testGetCreatedAt()
+    public function testGetCreatedAt(): void
     {
         $order = new Order();
         $createdAt = new \DateTime();
@@ -14,10 +16,10 @@ class OrderTest extends TestCase
 
         $actualDateTime = $order->getCreatedAt();
 
-        $this->assertSame($createdAt, $actualDateTime);
+        self::assertSame($createdAt, $actualDateTime);
     }
 
-    public function testIsEmpty()
+    public function testIsEmpty(): void
     {
         $order = new Order();
         $this->assertTrue($order->isEmpty());
@@ -29,7 +31,7 @@ class OrderTest extends TestCase
         $this->assertFalse($order->isEmpty());
     }
 
-    public function testAddItem()
+    public function testAddItem(): void
     {
         $order = new Order();
         $item = new OrderItem();
@@ -39,6 +41,6 @@ class OrderTest extends TestCase
         $this->assertFalse($order->isEmpty());
 
         // Check if the added item is in the order
-        $this->assertTrue($order->getItems()->contains($item));
+        self::assertTrue($order->getItems()->contains($item));
     }
 }

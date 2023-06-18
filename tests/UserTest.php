@@ -1,12 +1,14 @@
 <?php
 
+namespace App\Tests;
+
 use App\Entity\Order;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testGetEmail()
+    public function testGetEmail(): void
     {
         $user = new User();
         $user->setEmail('sklep@example.com');

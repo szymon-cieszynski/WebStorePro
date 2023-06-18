@@ -44,6 +44,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/orders, roles: IS_AUTHENTICATED_REMEMBERED }
 
+
 when@test:
     security:
         password_hashers:
