@@ -34,13 +34,11 @@ class CartManager
         OrderFactory $orderFactory,
         EntityManagerInterface $entityManager,
         Security $security,
-        // Order $total
     ) {
         $this->cartSessionStorage = $cartStorage;
         $this->cartFactory = $orderFactory;
         $this->entityManager = $entityManager;
         $this->security = $security;
-        // $this->total = $total;
     }
 
     /**
@@ -77,9 +75,4 @@ class CartManager
         // Persist in session
         $this->cartSessionStorage->setCart($cart);
     }
-
-    // public function getTotalCart()
-    // {
-    //     return $this->total->getTotal();
-    // }
 }

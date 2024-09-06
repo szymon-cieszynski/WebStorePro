@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Order;
-use App\Entity\OrderItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -70,60 +69,6 @@ class OrderRepository extends ServiceEntityRepository
             ->andWhere('o.user = :userId')
             ->setParameter('userId', $userId);
 
-        // $qb->select('o.id', 'o.status', 'o.createdAt', 'o.updatedAt', 'o.total', 'shippingType.price AS shippingPrice')
-        //     ->leftJoin('o.shippingDetails', 'shippingDetails')
-        //     ->leftJoin('shippingDetails.shippingType', 'shippingType')
-        //     ->andWhere($qb->expr()->orX(
-        //         $qb->expr()->eq('o.status', ':statusCart'),
-        //         $qb->expr()->eq('o.status', ':statusDone')
-        //     ))
-        //     ->andWhere('o.user = :userId')
-        //     ->setParameter('statusCart', 'cart')
-        //     ->setParameter('statusDone', 'done')
-        //     ->setParameter('userId', $userId);
-
         return $qb->getQuery()->getResult();
     }
-
-    // public function removeOrder(Order $order): void
-    // {
-    //     $entityManager = $this->getEntityManager();
-    //     $entityManager->remove($order);
-    //     $entityManager->flush();
-    // }
-
-    // public function findOrderByOrderItem(OrderItem $orderItem): ?Order
-    // {
-    //     return $this->createQueryBuilder('o')
-    //         ->andWhere(':orderItem MEMBER OF o.orderItems')
-    //         ->setParameter('orderItem', $orderItem)
-    //         ->getQuery()
-    //         ->getOneOrNullResult();
-    // }
-
-
-    //    /**
-    //     * @return Order[] Returns an array of Order objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Order
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

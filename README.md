@@ -10,7 +10,7 @@ WebStorePro is an e-commerce web application built with Symfony framework.
 
 Follow these steps to install and run the application:
 
-1. Clone the repository: `git clone https://github.com/your-username/WebStorePro.git`
+1. Clone the repository: `git clone https://github.com/szymon-cieszynski/WebStorePro.git`
 2. Install dependencies: `composer install`
 3. Set up the database configuration in the `.env` file.
 4. Create the database: `php bin/console doctrine:database:create`
@@ -31,7 +31,6 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
 
 ## Contact
 

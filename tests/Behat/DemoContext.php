@@ -42,9 +42,6 @@ final class DemoContext implements Context
      */
     public function theResponseShouldBeReceived(): void
     {
-        // if ($this->response === null) {
-        //     throw new \RuntimeException('No response received');
-        // }
         Assert::assertNotNull($this->response);
     }
 }

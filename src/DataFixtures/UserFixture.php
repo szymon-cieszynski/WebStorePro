@@ -30,12 +30,6 @@ class UserFixture extends Fixture
             $user->setFirstName('Name' . $i);
             $manager->persist($user);
         }
-        // $this->createMany(10, 'main_users', function ($i) {
-        //     $user = new User();
-        //     $user->setEmail(sprintf('webstore%d@example.com', $i));
-        //     $user->setFirstName($this->faker->firstName);
-
-        //     return $user;
 
         $manager->flush();
     }

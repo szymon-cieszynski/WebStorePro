@@ -17,7 +17,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 
 class LoginFormAuthenticator extends AbstractAuthenticator
@@ -33,7 +32,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function supports(Request $request): ?bool
     {
-        //dd('supports check method');
         return $request->getPathInfo() === '/login' && $request->isMethod('POST');
     }
 
@@ -41,7 +39,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-        //dd($this->userRepository);
+
         return new Passport(
             new UserBadge($email, function ($userIdentifier) {
                 // optionally pass a callback to load the User manually
@@ -76,15 +74,4 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             $this->router->generate('app_login')
         );
     }
-
-    //    public function start(Request $request, AuthenticationException $authException = null): Response
-    //    {
-    //        /*
-    //         * If you would like this class to control what happens when an anonymous user accesses a
-    //         * protected page (e.g. redirect to /login), uncomment this method and make this class
-    //         * implement Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface.
-    //         *
-    //         * For more details, see https://symfony.com/doc/current/security/experimental_authenticators.html#configuring-the-authentication-entry-point
-    //         */
-    //    }
 }

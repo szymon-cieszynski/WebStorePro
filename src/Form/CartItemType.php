@@ -19,9 +19,6 @@ class CartItemType extends AbstractType
                 'attr' => [
                     'min' => 1,
                 ],
-                // 'constraints' => [
-                //     new GreaterThan(0),
-                // ],
             ])
             ->add('remove', SubmitType::class);
     }

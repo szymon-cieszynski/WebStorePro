@@ -2,7 +2,6 @@
 
 namespace App\Tests;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +32,6 @@ class LoginFormAuthenticatorTest extends KernelTestCase
         $authenticator = new LoginFormAuthenticator($userRepository, $router);
 
         $email = 'test@example.com';
-        //$email = 'webstore1@example.com';
         $password = 'password';
         $csrfToken = 'csrf-token';
 
@@ -51,20 +49,3 @@ class LoginFormAuthenticatorTest extends KernelTestCase
         self::assertInstanceOf(Passport::class, $passport);
     }
 }
-
-
-        //setting expected call 'findOneBy' to the UserRepo mock
-        // $userRepository->expects($this->once())
-        //     ->method('findOneBy')
-        //     ->with(['email' => $email])
-        //     ->willReturn(new User());
-
-        // $userRepository->method('findOneBy')
-        //     ->with(['email' => $email])
-        //     ->willReturnCallback(function ($criteria) {
-        //         if ($criteria['email'] === 'test@example.com') {
-        //             return new User();
-        //         } else {
-        //             return null;
-        //         }
-        //     });
